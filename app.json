@@ -1,0 +1,52 @@
+{
+  "expo": {
+    "name": "Mestrado",
+    "slug": "mestrado",
+    "version": "2.0.2",
+    "orientation": "portrait",
+    "icon": "./src/application/assets/imgs/icon.png",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.rubinhodev.mestrado"
+    },
+    "android": {
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./src/application/assets/imgs/adaptive-icon.png",
+        "backgroundColor": "#008b84"
+      },
+      "package": "com.rubinhodev.mestrado"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./src/application/assets/imgs/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./src/application/assets/imgs/splash-icon.png",
+          "backgroundColor": "#008b84",
+          "resizeMode": "contain",
+          "imageWidth": 200
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "00eec5fc-26fe-447a-a02c-9c4c191d1a1e"
+      }
+    }
+  }
+}
