@@ -40,3 +40,8 @@ app-example
 android
 ios
 .expo
+
+GoogleService-Info.plist
+google-services.json
+
+.env

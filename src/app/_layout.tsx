@@ -1,20 +1,23 @@
-import theme from '@/application/styles/theme'
-import { ThemeProvider } from 'styled-components/native'
+import 'react-native-reanimated'
+import '@/application/styles/globals.css'
+
 import { useFonts } from 'expo-font'
-import { Stack } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
 import { StatusBar } from 'expo-status-bar'
 import React, { useEffect } from 'react'
-import 'react-native-reanimated'
 import Toast from 'react-native-toast-message'
+
+import { AuthProvider } from '@/application/hooks/auth'
+import { AppRouters } from '@/application/routes'
 
 SplashScreen.preventAutoHideAsync()
 
 export default function RootLayout() {
   const [loaded] = useFonts({
-    Poppins_400Regular: require('../application/assets/fonts/Poppins-Regular.ttf'),
-    Poppins_600SemiBold: require('../application/assets/fonts/Poppins-SemiBold.ttf'),
-    Poppins_500Medium: require('../application/assets/fonts/Poppins-Medium.ttf'),
+    Inter_Regular: require('../application/assets/fonts/Inter_Regular.ttf'),
+    Inter_Medium: require('../application/assets/fonts/Inter_Medium.ttf'),
+    Inter_SemiBold: require('../application/assets/fonts/Inter_SemiBold.ttf'),
+    Inter_Bold: require('../application/assets/fonts/Inter_Bold.ttf'),
   })
 
   useEffect(() => {
@@ -28,21 +31,10 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <Stack
-        screenOptions={{
-          headerShown: false,
-          statusBarStyle: 'dark',
-          statusBarTranslucent: true,
-          statusBarAnimation: 'fade',
-          statusBarHidden: false,
-          statusBarBackgroundColor: theme.COLORS.BACKGROUND,
-        }}
-      >
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      </Stack>
+    <AuthProvider>
+      <AppRouters />
       <StatusBar style="auto" />
       <Toast />
-    </ThemeProvider>
+    </AuthProvider>
   )
 }
