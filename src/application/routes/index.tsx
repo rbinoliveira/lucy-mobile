@@ -24,6 +24,7 @@ export function AppRouters() {
       <Stack.Screen name="login" options={{ headerShown: false }} />
       <Stack.Screen name="(authenticated)" options={{ headerShown: false }} />
       <Stack.Screen name="+not-found" />
+      <Stack.Screen name="recover-password" options={{ headerShown: false }} />
     </Stack>
   )
 }

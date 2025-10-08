@@ -3,7 +3,6 @@ import '@/application/styles/globals.css'
 
 import { useFonts } from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
-import { StatusBar } from 'expo-status-bar'
 import React, { useEffect } from 'react'
 import Toast from 'react-native-toast-message'
 
@@ -33,7 +32,6 @@ export default function RootLayout() {
   return (
     <AuthProvider>
       <AppRouters />
-      <StatusBar style="auto" />
       <Toast />
     </AuthProvider>
   )

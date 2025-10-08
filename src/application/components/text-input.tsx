@@ -1,10 +1,15 @@
-import Feather from '@expo/vector-icons/Feather'
-import clsx from 'clsx'
-import React, { forwardRef, JSX, useState } from 'react'
+import Ionicons from '@expo/vector-icons/Ionicons'
+import React, { forwardRef, JSX, ReactNode, useState } from 'react'
 import { Control, Controller, FieldValues, Path } from 'react-hook-form'
-import { Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { TextInput, TouchableOpacity, View } from 'react-native'
+
+import { Text } from '@/application/components/text'
+import { cn } from '@/application/utils/cn'
 
 type InputTextProps<T extends FieldValues> = {
+  label?: string
+  labelDescription?: string
+  labelIcon?: ReactNode
   name: Path<T>
   control: Control<T>
   placeholder: string
@@ -12,11 +17,15 @@ type InputTextProps<T extends FieldValues> = {
   keyboardType?: 'default' | 'email-address'
   ref?: React.RefObject<TextInput | null>
   returnKeyType?: 'next' | 'done'
+  className?: string
   onSubmitEditing?: () => void
 }
 
 function InputTextComponent<T extends FieldValues>(
   {
+    label,
+    labelDescription,
+    labelIcon,
     name,
     control,
     placeholder,
@@ -24,6 +33,7 @@ function InputTextComponent<T extends FieldValues>(
     keyboardType = 'default',
     returnKeyType = 'done',
     onSubmitEditing,
+    className,
   }: InputTextProps<T>,
   ref: React.ForwardedRef<TextInput>,
 ) {
@@ -38,19 +48,35 @@ function InputTextComponent<T extends FieldValues>(
         field: { onChange, onBlur, value },
         fieldState: { error },
       }) => (
-        <View className="mb-4">
+        <View className={className}>
+          {label && (
+            <View className="flex-row gap-3 mb-3">
+              <View className="bg-primary rounded-full w-10 h-10 justify-center items-center">
+                {labelIcon}
+              </View>
+              <View>
+                <Text className="font-inter-semibold leading-[1.5]">
+                  {label}
+                </Text>
+                <Text className="text-xs leading-[1.333]">
+                  {labelDescription}
+                </Text>
+              </View>
+            </View>
+          )}
+
           <View
-            className={clsx(
-              'flex-row items-center border border-border bg-white rounded-xl px-4',
-              'h-[58px] border-2',
+            className={cn(
+              'flex-row items-center border border-border bg-white rounded-lg px-4',
+              'h-[52px] border-2',
               error && 'border-red-500',
               isFocused && 'border-primary',
             )}
           >
             <TextInput
-              className="flex-1 text-lg py-[0.625rem]"
+              className="flex-1 text-sm py-[0.625rem]"
               placeholder={placeholder}
-              placeholderTextColor="#9ca3af"
+              placeholderTextColor="#6B7280"
               onBlur={() => {
                 onBlur()
                 setIsFocused(false)
@@ -69,9 +95,9 @@ function InputTextComponent<T extends FieldValues>(
             {secureTextEntry && (
               <TouchableOpacity onPress={() => setHidden(!hidden)}>
                 {hidden ? (
-                  <Feather name="eye" size={20} color="#6b7280" />
+                  <Ionicons name="eye" size={20} color="#6b7280" />
                 ) : (
-                  <Feather name="eye-off" size={20} color="#6b7280" />
+                  <Ionicons name="eye-off" size={20} color="#6b7280" />
                 )}
               </TouchableOpacity>
             )}

@@ -4,6 +4,7 @@ import {
   getAuth,
   GoogleAuthProvider,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithCredential,
   signInWithEmailAndPassword,
   signOut,
@@ -44,9 +45,10 @@ type AuthContextType = {
   logout: () => Promise<void>
   loading: boolean
   signInWithGoogle: () => Promise<FirebaseAuthTypes.UserCredential>
+  recoverPassword: (email: string) => Promise<void>
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined)
+const AuthContext = createContext<AuthContextType>({} as AuthContextType)
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -74,6 +76,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   function register(email: string, password: string) {
     return createUserWithEmailAndPassword(auth, email, password)
+  }
+
+  async function recoverPassword(email: string) {
+    try {
+      await sendPasswordResetEmail(auth, email)
+    } catch (error) {
+      console.log('error', error)
+    }
   }
 
   function logout() {
@@ -130,15 +140,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   return (
     <AuthContext.Provider
-      value={{ user, login, register, logout, loading, signInWithGoogle }}
+      value={{
+        user,
+        login,
+        register,
+        logout,
+        loading,
+        signInWithGoogle,
+        recoverPassword,
+      }}
     >
       {children}
     </AuthContext.Provider>
   )
 }
 
-export const useAuth = () => {
-  const context = useContext(AuthContext)
-  if (!context) throw new Error('useAuth must be used within AuthProvider')
-  return context
-}
+export const useAuth = () => useContext(AuthContext)
