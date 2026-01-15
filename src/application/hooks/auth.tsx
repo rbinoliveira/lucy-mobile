@@ -3,6 +3,7 @@ import {
   FirebaseAuthTypes,
   getAuth,
   GoogleAuthProvider,
+  OAuthProvider,
   onAuthStateChanged,
   sendPasswordResetEmail,
   signInWithCredential,
@@ -17,7 +18,10 @@ import {
   setDoc,
 } from '@react-native-firebase/firestore'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
+import * as AppleAuthentication from 'expo-apple-authentication'
+import * as Crypto from 'expo-crypto'
 import React, { createContext, useContext, useEffect, useState } from 'react'
+import { Platform } from 'react-native'
 
 const auth = getAuth()
 
@@ -30,6 +34,8 @@ type User = {
   name: string
   role: string
   photo: string
+  phone?: string
+  birthDate?: string
 }
 
 type AuthContextType = {
@@ -45,7 +51,9 @@ type AuthContextType = {
   logout: () => Promise<void>
   loading: boolean
   signInWithGoogle: () => Promise<FirebaseAuthTypes.UserCredential>
+  signInWithApple: () => Promise<FirebaseAuthTypes.UserCredential>
   recoverPassword: (email: string) => Promise<void>
+  isAppleAuthAvailable: boolean
 }
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType)
@@ -80,6 +88,8 @@ async function getOrCreateUser(
     name: data.name,
     role: data.role,
     photo: data.photo,
+    phone: data.phone,
+    birthDate: data.birthDate,
   }
 }
 
@@ -88,6 +98,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
+  const [isAppleAuthAvailable, setIsAppleAuthAvailable] = useState(false)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (authUser) => {
@@ -103,6 +114,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     return unsubscribe
   }, [])
 
+  useEffect(() => {
+    async function checkAppleAuth() {
+      if (Platform.OS === 'ios') {
+        const isAvailable = await AppleAuthentication.isAvailableAsync()
+        setIsAppleAuthAvailable(isAvailable)
+      }
+    }
+    checkAppleAuth()
+  }, [])
+
   function login(email: string, password: string) {
     return signInWithEmailAndPassword(auth, email, password)
   }
@@ -112,11 +133,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   }
 
   async function recoverPassword(email: string) {
-    try {
-      await sendPasswordResetEmail(auth, email)
-    } catch (error) {
-      console.log('error', error)
-    }
+    await sendPasswordResetEmail(auth, email)
   }
 
   function logout() {
@@ -138,6 +155,36 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     return signInWithCredential(getAuth(), googleCredential)
   }
 
+  async function signInWithApple() {
+    const nonce = Math.random().toString(36).substring(2, 10)
+    const hashedNonce = await Crypto.digestStringAsync(
+      Crypto.CryptoDigestAlgorithm.SHA256,
+      nonce,
+    )
+
+    const appleCredential = await AppleAuthentication.signInAsync({
+      requestedScopes: [
+        AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+        AppleAuthentication.AppleAuthenticationScope.EMAIL,
+      ],
+      nonce: hashedNonce,
+    })
+
+    const { identityToken } = appleCredential
+
+    if (!identityToken) {
+      throw new Error('No identity token found')
+    }
+
+    const provider = new OAuthProvider('apple.com')
+    const credential = provider.credential({
+      idToken: identityToken,
+      rawNonce: nonce,
+    })
+
+    return signInWithCredential(auth, credential)
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -147,7 +194,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         logout,
         loading,
         signInWithGoogle,
+        signInWithApple,
         recoverPassword,
+        isAppleAuthAvailable,
       }}
     >
       {children}

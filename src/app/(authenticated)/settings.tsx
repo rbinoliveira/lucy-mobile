@@ -1,0 +1,7 @@
+import React from 'react'
+
+import { SettingsScreen } from '@/application/screens/settings/settings.screen'
+
+export default function Settings() {
+  return <SettingsScreen />
+}

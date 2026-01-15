@@ -43,6 +43,14 @@ export default {
           backgroundColor: '#ffffff',
         },
       ],
+      [
+        'expo-notifications',
+        {
+          icon: './src/application/assets/images/icon.png',
+          color: '#008b84',
+          sounds: [],
+        },
+      ],
       '@react-native-firebase/app',
       '@react-native-firebase/auth',
     ],

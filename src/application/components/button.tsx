@@ -27,14 +27,17 @@ export function Button({
       'bg-white border-2 border-border h-[52px] justify-center items-center ',
       'gap-2 flex-row w-full rounded-lg',
     ],
-    apple: [''],
+    apple: [
+      'bg-black h-[52px] justify-center items-center ',
+      'gap-2 flex-row w-full rounded-lg',
+    ],
     ghost: [''],
   }
 
   const textVariants = {
     login: ['text-white font-inter-semibold'],
     google: ['text-text-six font-inter-semibold text-sm'],
-    apple: [''],
+    apple: ['text-white font-inter-semibold text-sm'],
     ghost: [''],
   }
 

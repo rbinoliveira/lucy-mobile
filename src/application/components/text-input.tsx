@@ -1,5 +1,5 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
-import React, { forwardRef, JSX, ReactNode, useState } from 'react'
+import React, { forwardRef, ReactNode, useState } from 'react'
 import { Control, Controller, FieldValues, Path } from 'react-hook-form'
 import { TextInput, TouchableOpacity, View } from 'react-native'
 
@@ -112,6 +112,8 @@ function InputTextComponent<T extends FieldValues>(
   )
 }
 
-export const InputText = forwardRef(InputTextComponent) as <T extends FieldValues>(
+type InputTextType = <T extends FieldValues = FieldValues>(
   props: InputTextProps<T> & { ref?: React.ForwardedRef<TextInput> },
-) => JSX.Element
+) => ReturnType<typeof InputTextComponent<T>>
+
+export const InputText = forwardRef(InputTextComponent) as InputTextType

@@ -2,13 +2,15 @@ import FontAwesome from '@expo/vector-icons/FontAwesome'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Image } from 'expo-image'
 import { useRouter } from 'expo-router'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { StyleSheet, TextInput, View } from 'react-native'
+import Toast from 'react-native-toast-message'
 
 import loginIcon from '@/application/assets/icons/login.svg'
 import { Button } from '@/application/components/button'
 import { InputText } from '@/application/components/text-input'
+import { useAuth } from '@/application/hooks/auth'
 import {
   LoginFormSchema,
   loginFormSchema,
@@ -24,11 +26,38 @@ export function LoginForm() {
   })
 
   const router = useRouter()
+  const { login } = useAuth()
+  const [isLoading, setIsLoading] = useState(false)
 
   const passwordRef = useRef<TextInput | null>(null)
 
-  function onSubmit(data: LoginFormSchema) {
-    console.log(data)
+  async function onSubmit({ email, password }: LoginFormSchema) {
+    setIsLoading(true)
+    try {
+      await login(email, password)
+    } catch (error: unknown) {
+      let message = 'Ocorreu um erro ao fazer login. Tente novamente.'
+
+      if (error?.code === 'auth/invalid-credential') {
+        message = 'E-mail ou senha incorretos.'
+      } else if (error?.code === 'auth/user-not-found') {
+        message = 'Usuário não encontrado.'
+      } else if (error?.code === 'auth/wrong-password') {
+        message = 'Senha incorreta.'
+      } else if (error?.code === 'auth/too-many-requests') {
+        message = 'Muitas tentativas. Tente novamente mais tarde.'
+      } else if (error?.code === 'auth/user-disabled') {
+        message = 'Esta conta foi desativada.'
+      }
+
+      Toast.show({
+        type: 'error',
+        text1: 'Erro no login',
+        text2: message,
+      })
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -44,6 +73,7 @@ export function LoginForm() {
         labelDescription="Seu endereço de email"
         labelIcon={<FontAwesome name={'envelope'} size={14} color={'white'} />}
         className="mb-4"
+        editable={!isLoading}
       />
       <InputText
         ref={passwordRef}
@@ -56,6 +86,7 @@ export function LoginForm() {
         labelDescription="Digite sua senha"
         labelIcon={<FontAwesome name={'lock'} size={14} color={'white'} />}
         className="mb-[0.625rem]"
+        editable={!isLoading}
       />
       <Button
         onPress={() => router.push('/recover-password')}
@@ -63,12 +94,16 @@ export function LoginForm() {
         label="Esqueceu a senha?"
         variant="ghost"
         labelClassName="text-primary text-xs font-inter-medium"
+        disabled={isLoading}
       />
       <Button
         onPress={handleSubmit(onSubmit)}
-        label="Entrar"
+        label={isLoading ? 'Entrando...' : 'Entrar'}
         variant="login"
-        icon={<Image source={loginIcon} alt="" style={styles.icon} />}
+        icon={
+          !isLoading && <Image source={loginIcon} alt="" style={styles.icon} />
+        }
+        disabled={isLoading}
       />
     </View>
   )
