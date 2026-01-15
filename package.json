@@ -9,10 +9,15 @@
     "ios": "expo run:ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
-    "lint": "expo lint",
-    "build:android": "npx expo prebuild --clean && npx expo run:android",
-    "build:eas:android:prod": "eas build --platform android --profile production",
-    "clean": "chmod +x clean.sh && ./clean.sh"
+    "lint:fix": "eslint . --fix",
+    "prebuild:android": "expo prebuild --platform android",
+    "prebuild:ios": "expo prebuild --platform ios",
+    "build:android:dev": "npx eas-cli build --platform android --profile development",
+    "build:android:preview": "npx eas-cli build --platform android --profile preview",
+    "build:android:production": "npx eas-cli build --platform android --profile production",
+    "build:ios:dev": "npx eas-cli build --platform ios --profile development",
+    "build:ios:preview": "npx eas-cli build --platform ios --profile preview",
+    "build:ios:production": "npx eas-cli build --platform ios --profile production"
   },
   "jest": {
     "preset": "jest-expo"
@@ -58,12 +63,9 @@
     "zod": "^4.1.5"
   },
   "devDependencies": {
+    "@rbinflow/eslint-config": "^1.0.6",
     "@babel/core": "^7.25.2",
-    "@rocketseat/eslint-config": "^2.2.2",
     "@types/react": "~19.0.10",
-    "eslint": "^8.56.0",
-    "eslint-plugin-simple-import-sort": "^12.1.1",
-    "prettier-plugin-tailwindcss": "^0.5.11",
     "tailwindcss": "^3.4.17",
     "typescript": "~5.8.3"
   },

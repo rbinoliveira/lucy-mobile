@@ -20,8 +20,8 @@ export function Header({ title, description }: HeaderProps) {
       <Text className="text-text-four text-sm font-inter-medium">
         {description}
       </Text>
-      <View className="absolute left-[-64px] bottom-[-64px] h-32 w-32 rounded-full opacity-10 bg-white"></View>
-      <View className="absolute right-[-80px] top-[-80px] h-40 w-40 rounded-full opacity-10 bg-white"></View>
+      <View className="absolute left-[-64px] bottom-[-64px] h-32 w-32 rounded-full opacity-10 bg-white" />
+      <View className="absolute right-[-80px] top-[-80px] h-40 w-40 rounded-full opacity-10 bg-white" />
     </LinearGradient>
   )
 }

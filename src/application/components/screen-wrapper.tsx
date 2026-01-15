@@ -1,6 +1,11 @@
 import { StatusBar } from 'expo-status-bar'
-import { ReactNode } from 'react'
-import { KeyboardAvoidingView, Platform, ScrollView } from 'react-native'
+import { ReactNode, useMemo } from 'react'
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+} from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { cn } from '@/application/utils/cn'
@@ -14,6 +19,10 @@ type ScreenWrapperProps = {
   statusBarStyle?: 'light' | 'auto'
 }
 
+const styles = StyleSheet.create({
+  flex1: { flex: 1 },
+})
+
 export default function ScreenWrapper({
   hasSafeArea = true,
   statusBarStyle = 'auto',
@@ -22,7 +31,7 @@ export default function ScreenWrapper({
 }: ScreenWrapperProps) {
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1 }}
+      style={styles.flex1}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       className={className}
     >
@@ -43,13 +52,18 @@ export function ScreenWrapperScroll({
   justifyContent = 'center',
   alignItems = 'center',
 }: ScreenWrapperProps) {
+  const contentContainerStyle = useMemo(
+    () => ({
+      flexGrow: 1,
+      justifyContent,
+      alignItems,
+    }),
+    [justifyContent, alignItems],
+  )
+
   return (
     <ScrollView
-      contentContainerStyle={{
-        flexGrow: 1,
-        justifyContent,
-        alignItems,
-      }}
+      contentContainerStyle={contentContainerStyle}
       className={cn('px-5')}
       keyboardShouldPersistTaps="handled"
       showsVerticalScrollIndicator={false}

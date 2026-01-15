@@ -45,6 +45,8 @@ GoogleService-Info.plist
 google-services.json
 
 .env
+
+
 .claude/
 .gemini/
 .cursor/

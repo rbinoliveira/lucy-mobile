@@ -4,14 +4,19 @@ import { Image } from 'expo-image'
 import { useRouter } from 'expo-router'
 import { useRef } from 'react'
 import { useForm } from 'react-hook-form'
-import { TextInput, View } from 'react-native'
+import { StyleSheet, TextInput, View } from 'react-native'
 
+import loginIcon from '@/application/assets/icons/login.svg'
 import { Button } from '@/application/components/button'
 import { InputText } from '@/application/components/text-input'
 import {
   LoginFormSchema,
   loginFormSchema,
 } from '@/application/screens/login/schemas/login-form.schema'
+
+const styles = StyleSheet.create({
+  icon: { height: 16, width: 16 },
+})
 
 export function LoginForm() {
   const { control, handleSubmit } = useForm({
@@ -63,13 +68,7 @@ export function LoginForm() {
         onPress={handleSubmit(onSubmit)}
         label="Entrar"
         variant="login"
-        icon={
-          <Image
-            source={require('../../../assets/icons/login.svg')}
-            alt=""
-            style={{ width: 16, height: 16 }}
-          />
-        }
+        icon={<Image source={loginIcon} alt="" style={styles.icon} />}
       />
     </View>
   )

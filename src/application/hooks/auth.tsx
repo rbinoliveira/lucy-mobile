@@ -50,6 +50,39 @@ type AuthContextType = {
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType)
 
+async function getOrCreateUser(
+  authUser: FirebaseAuthTypes.User,
+): Promise<User> {
+  const db = getFirestore()
+  const userRef = doc(db, 'users', authUser.uid)
+  const userSnap = await getDoc(userRef)
+
+  if (!userSnap.exists()) {
+    const newUser: User = {
+      email: authUser.email || '',
+      name: authUser.displayName || '',
+      role: 'user',
+      photo: authUser.photoURL || '',
+    }
+
+    await setDoc(userRef, {
+      ...newUser,
+      createdAt: serverTimestamp(),
+      uid: authUser.uid,
+    })
+
+    return newUser
+  }
+
+  const data = userSnap.data()!
+  return {
+    email: data.email,
+    name: data.name,
+    role: data.role,
+    photo: data.photo,
+  }
+}
+
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
@@ -88,39 +121,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   function logout() {
     return signOut(auth)
-  }
-
-  async function getOrCreateUser(
-    authUser: FirebaseAuthTypes.User,
-  ): Promise<User> {
-    const db = getFirestore()
-    const userRef = doc(db, 'users', authUser.uid)
-    const userSnap = await getDoc(userRef)
-
-    if (!userSnap.exists()) {
-      const newUser: User = {
-        email: authUser.email || '',
-        name: authUser.displayName || '',
-        role: 'user',
-        photo: authUser.photoURL || '',
-      }
-
-      await setDoc(userRef, {
-        ...newUser,
-        createdAt: serverTimestamp(),
-        uid: authUser.uid,
-      })
-
-      return newUser
-    }
-
-    const data = userSnap.data()!
-    return {
-      email: data.email,
-      name: data.name,
-      role: data.role,
-      photo: data.photo,
-    }
   }
 
   async function signInWithGoogle() {

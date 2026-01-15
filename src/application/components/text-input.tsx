@@ -112,8 +112,6 @@ function InputTextComponent<T extends FieldValues>(
   )
 }
 
-export const InputText = forwardRef(InputTextComponent) as <
-  T extends FieldValues,
->(
+export const InputText = forwardRef(InputTextComponent) as <T extends FieldValues>(
   props: InputTextProps<T> & { ref?: React.ForwardedRef<TextInput> },
 ) => JSX.Element

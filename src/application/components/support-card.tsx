@@ -1,8 +1,13 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome'
 import { Image } from 'expo-image'
-import { View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
+import phoneIcon from '@/application/assets/icons/phone.svg'
 import { Text } from '@/application/components/text'
+
+const styles = StyleSheet.create({
+  icon: { height: 12, width: 12 },
+})
 
 export function SupportCard() {
   return (
@@ -18,11 +23,7 @@ export function SupportCard() {
           Entre em contato com seu dentista ou com a clínica.
         </Text>
         <View className="flex-row items-center gap-1">
-          <Image
-            source={require('../assets/icons/phone.svg')}
-            alt=""
-            style={{ width: 12, height: 12 }}
-          />
+          <Image source={phoneIcon} alt="" style={styles.icon} />
           <Text className="text-xs font-inter-medium text-primary leading-[1.33]">
             Falar com suporte
           </Text>
