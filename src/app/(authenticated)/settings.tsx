@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { SettingsScreen } from '@/application/screens/settings/settings.screen'
+import { SettingsScreen } from '@/features/settings/screens/settings.screen'
 
 export default function Settings() {
   return <SettingsScreen />

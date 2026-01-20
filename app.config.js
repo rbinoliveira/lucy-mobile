@@ -4,7 +4,7 @@ export default {
     slug: 'lucy',
     version: '1.0.0',
     orientation: 'portrait',
-    icon: './src/application/assets/images/icon.png',
+    icon: './src/shared/assets/images/icon.png',
     scheme: 'myapp',
     userInterfaceStyle: 'automatic',
     newArchEnabled: false,
@@ -20,7 +20,7 @@ export default {
     android: {
       versionCode: 1,
       adaptiveIcon: {
-        foregroundImage: './src/application/assets/images/adaptive-icon.png',
+        foregroundImage: './src/shared/assets/images/adaptive-icon.png',
         backgroundColor: '#008b84',
       },
       package: 'com.rbinoliveira.lucy',
@@ -30,14 +30,14 @@ export default {
     web: {
       bundler: 'metro',
       output: 'static',
-      favicon: './src/application/assets/images/favicon.png',
+      favicon: './src/shared/assets/images/favicon.png',
     },
     plugins: [
       'expo-router',
       [
         'expo-splash-screen',
         {
-          image: './src/application/assets/images/splash-icon.png',
+          image: './src/shared/assets/images/splash-icon.png',
           imageWidth: 200,
           resizeMode: 'contain',
           backgroundColor: '#ffffff',
@@ -46,7 +46,7 @@ export default {
       [
         'expo-notifications',
         {
-          icon: './src/application/assets/images/icon.png',
+          icon: './src/shared/assets/images/icon.png',
           color: '#008b84',
           sounds: [],
         },

@@ -1,6 +1,6 @@
 import { Tabs } from 'expo-router'
 
-import { TabItem } from '@/application/components/tab-item'
+import { TabItem } from '@/shared/components/tab-item'
 
 export default function TabLayout() {
   return (
