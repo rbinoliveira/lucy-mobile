@@ -1,6 +1,6 @@
 /**
- * Theme constants for Lucy Mobile
- * Colors migrated from lucy-web/src/shared/styles/globals.css
+* Theme constants for Adere Mobile
+* Colors migrated from adere-web/src/shared/styles/globals.css
  *
  * IMPORTANT: These colors must be synchronized with tailwind.config.js
  * Any changes to colors here should be reflected in tailwind.config.js

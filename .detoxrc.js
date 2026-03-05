@@ -12,9 +12,9 @@ module.exports = {
   apps: {
     'ios.debug': {
       type: 'ios.app',
-      binaryPath: 'ios/build/Build/Products/Debug-iphonesimulator/lucymobile.app',
+      binaryPath: 'ios/build/Build/Products/Debug-iphonesimulator/aderemobile.app',
       build:
-        'xcodebuild -workspace ios/lucymobile.xcworkspace -scheme lucymobile -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build',
+        'xcodebuild -workspace ios/aderemobile.xcworkspace -scheme aderemobile -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build',
     },
     'android.debug': {
       type: 'android.apk',

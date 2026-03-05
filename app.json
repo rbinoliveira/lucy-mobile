@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "lucy-mobile",
-    "slug": "lucy-mobile",
+    "name": "adere-mobile",
+    "slug": "adere-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/shared/assets/images/icon.png",
-    "scheme": "lucymobile",
+    "scheme": "aderemobile",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./src/shared/assets/images/icon.png",
@@ -15,7 +15,7 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.rbinoliveira.lucy",
+      "bundleIdentifier": "com.rbinoliveira.adere",
       "infoPlist": {
         "CFBundleURLTypes": [
           {
@@ -35,7 +35,7 @@
     "android": {
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.rbinoliveira.lucy",
+      "package": "com.rbinoliveira.adere",
       "versionCode": 8
     },
     "plugins": [

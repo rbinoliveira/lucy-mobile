@@ -7,7 +7,7 @@ export function LoginFooter() {
   return (
     <View className="items-center mt-[4.3125rem]">
       <PlatformText fontSize={17} color="base-white" className="mb-2">
-        New to Lucy?
+        New to Adere?
       </PlatformText>
       <Button variant="unstyled" disabled activeOpacity={1}>
         <PlatformText fontSize={15} color="base-white" className="underline">

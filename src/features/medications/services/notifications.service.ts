@@ -13,7 +13,7 @@ type ScheduledNotificationRecord = {
 
 // ─── Storage key ────────────────────────────────────────────────────────────
 
-const STORAGE_KEY = '@lucy:notification-records'
+const STORAGE_KEY = '@adere:notification-records'
 
 // ─── Notification appearance ─────────────────────────────────────────────
 

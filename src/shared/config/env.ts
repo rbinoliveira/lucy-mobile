@@ -18,7 +18,7 @@ const client = z.object({
 const processEnv = {
   EXPO_PUBLIC_API_URL:
     process.env.EXPO_PUBLIC_API_URL || 'http://localhost:3333',
-  EXPO_PUBLIC_APP_NAME: process.env.EXPO_PUBLIC_APP_NAME || 'lucy',
+  EXPO_PUBLIC_APP_NAME: process.env.EXPO_PUBLIC_APP_NAME || 'adere',
   EXPO_PUBLIC_FIREBASE_API_KEY: process.env.EXPO_PUBLIC_FIREBASE_API_KEY || '',
   EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN:
     process.env.EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN || '',

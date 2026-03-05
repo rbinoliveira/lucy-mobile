@@ -17,7 +17,7 @@
       "env": {
         "ANDROID_HOME": "/Users/rubinho/Library/Android/sdk",
         "EXPO_PUBLIC_APP_ENV": "development",
-        "EXPO_PUBLIC_APP_NAME": "lucy"
+        "EXPO_PUBLIC_APP_NAME": "adere"
       }
     },
     "preview": {
@@ -32,7 +32,7 @@
       "env": {
         "ANDROID_HOME": "/Users/rubinho/Library/Android/sdk",
         "EXPO_PUBLIC_APP_ENV": "preview",
-        "EXPO_PUBLIC_APP_NAME": "lucy"
+        "EXPO_PUBLIC_APP_NAME": "adere"
       }
     },
     "staging": {
@@ -46,7 +46,7 @@
       "env": {
         "ANDROID_HOME": "/Users/rubinho/Library/Android/sdk",
         "EXPO_PUBLIC_APP_ENV": "staging",
-        "EXPO_PUBLIC_APP_NAME": "lucy"
+        "EXPO_PUBLIC_APP_NAME": "adere"
       }
     },
     "production": {
@@ -61,7 +61,7 @@
       "env": {
         "ANDROID_HOME": "/Users/rubinho/Library/Android/sdk",
         "EXPO_PUBLIC_APP_ENV": "production",
-        "EXPO_PUBLIC_APP_NAME": "lucy"
+        "EXPO_PUBLIC_APP_NAME": "adere"
       }
     }
   }

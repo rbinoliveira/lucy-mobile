@@ -130,7 +130,7 @@ export function RecoverPasswordScreen() {
                   Como funciona?
                 </PlatformText>
                 <PlatformText fontSize={14} color="neutral-700">
-                  O Lucy vai te enviar um link para criar uma nova senha.
+                  O Adere vai te enviar um link para criar uma nova senha.
                   Verifique também sua caixa de spam.
                 </PlatformText>
               </View>
